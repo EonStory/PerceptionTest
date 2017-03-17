@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">PerceptionTest</string>
+    <string name="size_test">Size Test</string>
+    <string name="brightness_test">Brightness Test</string>
+    <string name="combined_test">Combined Test</string>
+    <string name="volume_test">Volume Test</string>
+    <string name="pitch_test">Pitch Test</string>
 </resources>
