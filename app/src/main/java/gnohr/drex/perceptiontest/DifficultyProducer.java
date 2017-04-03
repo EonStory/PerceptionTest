@@ -8,17 +8,30 @@ package gnohr.drex.perceptiontest;
 //similarly, if human fails then it assumes you would fail if the difference was smaller
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class DifficultyProducer {
-
-
-    //todo: Sort previoustestresults in order of difficulty (% difference in stimuli)
+    
     /*
     This works by assuming that if you passed a test, you would pass all easier tests
     and if you failed a test, you would fail all harder tests
-    it sums up all the tests and failures to provide a % chance of failing a given test
+    it sums up all the tests and failures to provide a % chance of failing all previous tests
      */
-    public static double[] perceptionGenerator(Number num, double difficulltyMinimum, double difficultyMaximum, ArrayList<perceptionDatum> previousTestResults) {
+    public static double[] difficultyCalculator(Number num, double difficulltyMinimum, double difficultyMaximum, ArrayList<perceptionDatum> previousTestResults) {
+
+        Collections.sort(previousTestResults, new Comparator<perceptionDatum>() {
+            public int compare(perceptionDatum pd1, perceptionDatum pd2) {
+                if (pd1.getValue1().doubleValue() / pd1.getValue2().doubleValue() == pd2.getValue1().doubleValue() / pd2.getValue2().doubleValue())
+                    return 0;
+                else if (pd1.getValue1().doubleValue() / pd1.getValue2().doubleValue() > pd2.getValue1().doubleValue() / pd2.getValue2().doubleValue())
+                    return 1;
+                else
+                    return -1;
+            }
+        });
+
         perceptionDatum[] stimuli = new perceptionDatum[2];
 
         int[] successful = new int[previousTestResults.size()];
