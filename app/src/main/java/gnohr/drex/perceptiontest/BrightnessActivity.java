@@ -1,19 +1,14 @@
 package gnohr.drex.perceptiontest;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
-/**
- * Created by Talx on 04/04/2017.
- */
-
-public class BrightnessActivity extends AppCompatActivity {
+public class BrightnessActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(new BrightnessView((this)));
-        //setContentView(R.layout.activity_main);
     }
 }

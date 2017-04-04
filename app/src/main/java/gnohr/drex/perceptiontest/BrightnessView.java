@@ -9,10 +9,6 @@ import android.view.Surface;
 import android.view.View;
 import android.view.WindowManager;
 
-/**
- * Created by Talx on 04/04/2017.
- */
-
 public class BrightnessView extends View {
 
     Context context;
@@ -69,9 +65,4 @@ public class BrightnessView extends View {
             canvas.drawCircle(x / 2, y / 4 * 3, circle2radius, paint);
         }
     }
-
-
-
-
-
 }
