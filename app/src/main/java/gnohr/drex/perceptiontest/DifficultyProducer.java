@@ -13,14 +13,15 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class DifficultyProducer {
-    
+
     /*
     This works by assuming that if you passed a test, you would pass all easier tests
     and if you failed a test, you would fail all harder tests
     it sums up all the tests and failures to provide a % chance of failing all previous tests
      */
     public static double[] difficultyCalculator(Number num, double difficulltyMinimum, double difficultyMaximum, ArrayList<perceptionDatum> previousTestResults) {
-
+        //the list must be sorted first because it coutns successes and failures in a cumulative way
+        //at each point in the list it records the runnning  number of fails or successes up to that point
         Collections.sort(previousTestResults, new Comparator<perceptionDatum>() {
             public int compare(perceptionDatum pd1, perceptionDatum pd2) {
                 if (pd1.getValue1().doubleValue() / pd1.getValue2().doubleValue() == pd2.getValue1().doubleValue() / pd2.getValue2().doubleValue())

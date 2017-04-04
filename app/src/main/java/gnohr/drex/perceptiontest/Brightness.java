@@ -2,16 +2,12 @@ package gnohr.drex.perceptiontest;
 
 import java.util.ArrayList;
 
-public class Brightness {
-
-    private ArrayList<perceptionDatum<Integer>> data;
+public class Brightness extends perceptionTestType{
 
     public Brightness() {
-
+        super();
+        data = new ArrayList<perceptionDatum<Integer>>();
     }
 
-    public void addDatum(perceptionDatum<Integer> d) {
-        data.add(d);
-    }
 
 }
