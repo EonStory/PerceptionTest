@@ -14,11 +14,7 @@ public abstract class perceptionTestType<T extends Number> {
         data = new ArrayList<perceptionDatum<Integer>>();
     }
 
-
     public void addPerceptionDatum(perceptionDatum d) {
         data.add(d);
     }
-
-
-
 }
