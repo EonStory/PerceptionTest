@@ -6,6 +6,7 @@ import android.media.AudioManager;
 import android.media.AudioTrack;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 import android.widget.TextView;
 
 //contains code about generating the tones
@@ -17,7 +18,6 @@ public class PitchActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         pitchView = new PitchView(this);
         setContentView(pitchView);
         initiatePitchSequence(500, 900);
@@ -27,16 +27,9 @@ public class PitchActivity extends Activity {
 
         int duration = (int) (timePlayed * 44.1);
 
-        // AudioTrack definition
-        int mBufferSize = AudioTrack.getMinBufferSize(44100,
-                AudioFormat.CHANNEL_OUT_MONO,
-                AudioFormat.ENCODING_PCM_8BIT);
-
         AudioTrack mAudioTrack = new AudioTrack(AudioManager.STREAM_MUSIC, 44100,
                 AudioFormat.CHANNEL_OUT_MONO, AudioFormat.ENCODING_PCM_16BIT,
-                mBufferSize, AudioTrack.MODE_STREAM);
-
-        //TODO: figure out how to use AudioTrack.MODE_STATIC, it has lower latency
+                duration, AudioTrack.MODE_STATIC);
 
         // Sine wave
         double[] mSound = new double[duration];
@@ -46,13 +39,10 @@ public class PitchActivity extends Activity {
             mBuffer[i] = (short) (mSound[i]*Short.MAX_VALUE);
         }
 
+        mAudioTrack.write(mBuffer, 0, mBuffer.length);
+
         mAudioTrack.setStereoVolume(AudioTrack.getMaxVolume() / 4, AudioTrack.getMaxVolume() / 4);
         mAudioTrack.play();
-
-        mAudioTrack.write(mBuffer, 0, mSound.length);
-        mAudioTrack.stop();
-        mAudioTrack.release();
-
     }
 
 
@@ -89,5 +79,15 @@ public class PitchActivity extends Activity {
         };
 
         handler.postDelayed(q, totalWaitTime);
+    }
+
+    public void firstButton(View view) {
+        setContentView(pitchView);
+        initiatePitchSequence(500, 900);
+    }
+
+    public void secondButton(View view) {
+        setContentView(pitchView);
+        initiatePitchSequence(500, 900);
     }
 }

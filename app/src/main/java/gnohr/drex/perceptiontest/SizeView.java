@@ -53,7 +53,6 @@ public class SizeView extends View {
         //Display display = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
         //int rotation = display.getRotation();
 
-
         //This makes it redraw so animation can be used
         invalidate();
     }

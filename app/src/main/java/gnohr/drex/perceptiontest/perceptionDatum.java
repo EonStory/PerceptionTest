@@ -1,9 +1,8 @@
 package gnohr.drex.perceptiontest;
 
-import java.util.ArrayList;
 import java.sql.Time;
 
-public class perceptionDatum<T extends Number> {
+public class PerceptionDatum<T extends Number> {
     //records the time at which the answer was submitted (or timeout reached)
     private Time timeCompletedAt;
     //Did the user select the correct answer:
@@ -12,7 +11,7 @@ public class perceptionDatum<T extends Number> {
     private T value1;
     private T value2;
 
-    public perceptionDatum(Time timeCompletedAt, boolean passed, T value1, T value2) {
+    public PerceptionDatum(Time timeCompletedAt, boolean passed, T value1, T value2) {
         this.timeCompletedAt = timeCompletedAt;
         this.passed = passed;
         this.value1 = value1;
@@ -30,4 +29,6 @@ public class perceptionDatum<T extends Number> {
     public T getValue2() {
         return value2;
     }
+
+    public long getTimeAsLong() {return timeCompletedAt.getTime();}
 }

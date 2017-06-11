@@ -18,8 +18,6 @@ public class PitchView extends View {
 
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        int x = getWidth();
-        int y = getHeight();
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(Color.BLACK);
         canvas.drawPaint(paint);
