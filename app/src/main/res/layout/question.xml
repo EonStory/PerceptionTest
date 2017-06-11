@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:text="Which stimulus?"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="54dp"
+            android:id="@+id/stimuliQuestion"
+            android:background="@android:color/holo_green_light"
+            android:padding="20dp" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/stimuliQuestion"
+            android:layout_centerHorizontal="true">
+
+            <Button
+                android:text="First Stimulus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:id="@+id/button6"
+                android:padding="25dp"
+                android:onClick="firstButton" />
+
+            <Button
+                android:text="Second Stimulus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/button7"
+                android:layout_marginTop="24dp"
+                android:padding="25dp"
+                android:onClick="secondButton" />
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

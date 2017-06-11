@@ -17,9 +17,7 @@ public class SizeActivity extends Activity {
 
         bv = new SizeView(this);
         giveStimuliThenQuestions(bv);
-
     }
-
 
     public void giveStimuliThenQuestions(View view) {
         setContentView(bv);
@@ -46,7 +44,5 @@ public class SizeActivity extends Activity {
     public void secondButton(View view) {
         giveStimuliThenQuestions(bv);
     }
-
-
 
 }
