@@ -6,20 +6,19 @@ import android.graphics.Paint;
 import android.os.Handler;
 import android.view.View;
 
-public class SizeView extends View {
-
+public class CombinedView extends View {
     Context context;
     Handler handler = new Handler();
     int circleRadius = 0;
     Paint paint = new Paint();
 
-    public SizeView(Context context) {
+    public CombinedView(Context context) {
         super(context);
         this.context = context;
     }
 
     //this is the sequence of initial blank, then first cirle, then pause, then second circle
-    public void initiateCircleSequence() {
+    public void initiateStimulieSequence() {
         drawCircleOfRadius(Settings.initialDelay, handler, 500);
         drawCircleOfRadius(Settings.initialDelay + Settings.millisecondsDisplayed, handler, 0);
         drawCircleOfRadius(Settings.initialDelay + Settings.millisecondsDisplayed + Settings.gapBetweenStimuli, handler, 300);

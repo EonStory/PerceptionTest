@@ -19,6 +19,8 @@
         </activity>
         <activity android:name=".PitchActivity">
         </activity>
+        <activity android:name=".CombinedActivity">
+        </activity>
     </application>
 
 </manifest>

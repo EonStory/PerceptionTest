@@ -7,29 +7,28 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.TextView;
 
-//contains code about generating the tones
-public class PitchActivity extends Activity {
+public class CombinedActivity extends Activity {
 
     boolean continueSelected = true;
-    PitchView pitchView;
+    SizeView bv;
     Handler handler = new Handler();
-
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
 
-        pitchView = new PitchView(this);
-        setContentView(pitchView);
-        initiatePitchSequence(500, 900);
+        bv = new SizeView(this);
+        giveStimuliThenQuestions(bv);
     }
 
-
-    //plays the 2 pitch sounds
-    public void initiatePitchSequence(final int firstFrequency, final int secondFrequency) {
+    public void giveStimuliThenQuestions(View view) {
+        setContentView(bv);
+        bv.initiateCircleSequence();
 
         Runnable r = new Runnable() {
             @Override
             public void run() {
-                PitchGenerator.playSound(firstFrequency, Settings.millisecondsDisplayed);
+                PitchGenerator.playSound(300, Settings.millisecondsDisplayed);
             }
         };
 
@@ -38,7 +37,7 @@ public class PitchActivity extends Activity {
         Runnable r2 = new Runnable() {
             @Override
             public void run() {
-                PitchGenerator.playSound(secondFrequency, Settings.millisecondsDisplayed);
+                PitchGenerator.playSound(1200, Settings.millisecondsDisplayed);
             }
         };
 
@@ -46,36 +45,34 @@ public class PitchActivity extends Activity {
 
         long totalWaitTime = Settings.gapBetweenStimuli + Settings.initialDelay + 2 * Settings.millisecondsDisplayed;
 
-        Runnable q = new Runnable() {
+        Runnable r3 = new Runnable() {
             @Override
             public void run() {
                 setContentView(R.layout.question);
                 TextView phrase = (TextView)findViewById(R.id.stimuliQuestion);
-                phrase.setText("Which stimulus was lower pitched?");
+                phrase.setText("Which stimulus was bigger and lower pitched?");
             }
         };
 
-        handler.postDelayed(q, totalWaitTime);
+        handler.postDelayed(r3, totalWaitTime);
     }
 
     public void firstButton(View view) {
-        if (continueSelected) {
-            setContentView(pitchView);
-            initiatePitchSequence(500, 900);
+        if (continueSelected == true) {
+            giveStimuliThenQuestions(bv);
         }
         else {
-            Intent thingy = new Intent(PitchActivity.this, MainActivity.class);
+            Intent thingy = new Intent(CombinedActivity.this, MainActivity.class);
             startActivity(thingy);
         }
     }
 
     public void secondButton(View view) {
-        if (continueSelected) {
-            setContentView(pitchView);
-            initiatePitchSequence(500, 900);
+        if (continueSelected == true) {
+            giveStimuliThenQuestions(bv);
         }
         else {
-            Intent thingy = new Intent(PitchActivity.this, MainActivity.class);
+            Intent thingy = new Intent(CombinedActivity.this, MainActivity.class);
             startActivity(thingy);
         }
     }
@@ -87,4 +84,5 @@ public class PitchActivity extends Activity {
     public void endEar(View view) {
         continueSelected = false;
     }
+
 }

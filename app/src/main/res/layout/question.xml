@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black">
+    android:background="@color/colorAccent">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
 
         <TextView
             android:text="Which stimulus?"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
@@ -19,30 +22,52 @@
             android:background="@android:color/holo_green_light"
             android:padding="20dp" />
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
+        <Button
+            android:text="First Stimulus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:id="@+id/button6"
+            android:padding="25dp"
+            android:onClick="firstButton" />
+
+        <Button
+            android:text="Second Stimulus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/button7"
+            android:layout_marginTop="24dp"
+            android:padding="25dp"
+            android:onClick="secondButton" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/stimuliQuestion"
-            android:layout_centerHorizontal="true">
+            android:layout_below="@+id/linearLayout"
+            android:layout_alignLeft="@+id/linearLayout"
+            android:layout_alignStart="@+id/linearLayout"
+            android:layout_marginLeft="19dp"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="36dp" >
 
-            <Button
-                android:text="First Stimulus"
+            <RadioButton
+                android:text="Continue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:id="@+id/button6"
-                android:padding="25dp"
-                android:onClick="firstButton" />
+                android:id="@+id/continueRadio"
+                android:layout_weight="1"
+                android:onClick="continueEar" />
 
-            <Button
-                android:text="Second Stimulus"
+            <RadioButton
+                android:text="End Testing"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/button7"
-                android:layout_marginTop="24dp"
-                android:padding="25dp"
-                android:onClick="secondButton" />
-        </LinearLayout>
-    </RelativeLayout>
-</LinearLayout>
+                android:id="@+id/endRadio"
+                android:layout_weight="1"
+                android:onClick="endEar" />
+
+        </RadioGroup>
+
+    </LinearLayout>
+
+</RelativeLayout>
