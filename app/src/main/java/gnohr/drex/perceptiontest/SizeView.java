@@ -19,10 +19,10 @@ public class SizeView extends View {
     }
 
     //this is the sequence of initial blank, then first cirle, then pause, then second circle
-    public void initiateCircleSequence() {
-        drawCircleOfRadius(Settings.initialDelay, handler, 500);
+    public void initiateCircleSequence(int firstSize, int secondSize) {
+        drawCircleOfRadius(Settings.initialDelay, handler, firstSize);
         drawCircleOfRadius(Settings.initialDelay + Settings.millisecondsDisplayed, handler, 0);
-        drawCircleOfRadius(Settings.initialDelay + Settings.millisecondsDisplayed + Settings.gapBetweenStimuli, handler, 300);
+        drawCircleOfRadius(Settings.initialDelay + Settings.millisecondsDisplayed + Settings.gapBetweenStimuli, handler, secondSize);
 
         //Get rid of the final circle in preparation for next time
         drawCircleOfRadius(Settings.initialDelay + 2 * Settings.millisecondsDisplayed + Settings.gapBetweenStimuli, handler, 0);

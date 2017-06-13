@@ -12,6 +12,10 @@ public class SizeActivity extends Activity {
     boolean continueSelected = true;
     SizeView bv;
     Handler handler = new Handler();
+    int firstStimuli = 200;
+    int secondStimuli = 300;
+    boolean isFirstStimuliBigger = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -22,8 +26,19 @@ public class SizeActivity extends Activity {
     }
 
     public void giveStimuliThenQuestions(View view) {
+        //TODO: ensure these numbers are not equal to each other
+        firstStimuli = (int) (Math.random() * 600 + 200);
+        secondStimuli = (int) (Math.random() * 600 + 200);
+
+        if (firstStimuli <= secondStimuli) {
+            isFirstStimuliBigger = true;
+        }
+        else {
+            isFirstStimuliBigger = false;
+        }
+
         setContentView(bv);
-        bv.initiateCircleSequence();
+        bv.initiateCircleSequence(firstStimuli, secondStimuli);
 
         long totalWaitTime = Settings.gapBetweenStimuli + Settings.initialDelay + 2 * Settings.millisecondsDisplayed;
 

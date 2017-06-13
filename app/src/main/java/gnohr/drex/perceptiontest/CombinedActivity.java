@@ -12,6 +12,13 @@ public class CombinedActivity extends Activity {
     boolean continueSelected = true;
     SizeView bv;
     Handler handler = new Handler();
+    int firstSizeStimulus = 500;
+    int secondSizeStimulus = 900;
+    double firstPitchStimulus = 300;
+    double secondPitchStimulus = 200;
+    boolean isFirstStimuliLowerPitchedAndBigger = false;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -23,12 +30,48 @@ public class CombinedActivity extends Activity {
 
     public void giveStimuliThenQuestions(View view) {
         setContentView(bv);
-        bv.initiateCircleSequence();
+        //TODO: ensure these numbers are not equal to each other
+        firstSizeStimulus = (int) (Math.random() * 400 + 50);
+        secondSizeStimulus = (int) (Math.random() * 400 + 50);
+
+        int tempPitchStimulus1 =  (int) (Math.random() * 600 + 200);
+        int tempPitchStimulus2 =  (int) (Math.random() * 600 + 200);
+
+        //pairs up the bigger size with the lower pitch.
+        if (firstSizeStimulus >= secondSizeStimulus) {
+            isFirstStimuliLowerPitchedAndBigger = true;
+            if (tempPitchStimulus1 < tempPitchStimulus2) {
+                firstPitchStimulus = tempPitchStimulus1;
+                secondPitchStimulus = tempPitchStimulus2;
+            }
+            else {
+                firstPitchStimulus = tempPitchStimulus2;
+                secondPitchStimulus = tempPitchStimulus1;
+            }
+        }
+        else {
+            isFirstStimuliLowerPitchedAndBigger = false;
+
+            if (tempPitchStimulus1 < tempPitchStimulus2) {
+                firstPitchStimulus = tempPitchStimulus2;
+                secondPitchStimulus = tempPitchStimulus1;
+            }
+            else {
+                firstPitchStimulus = tempPitchStimulus1;
+                secondPitchStimulus = tempPitchStimulus2;
+            }
+
+        }
+
+
+
+
+        bv.initiateCircleSequence(firstSizeStimulus, secondSizeStimulus);
 
         Runnable r = new Runnable() {
             @Override
             public void run() {
-                PitchGenerator.playSound(300, Settings.millisecondsDisplayed);
+                PitchGenerator.playSound(firstPitchStimulus, Settings.millisecondsDisplayed);
             }
         };
 
@@ -37,7 +80,7 @@ public class CombinedActivity extends Activity {
         Runnable r2 = new Runnable() {
             @Override
             public void run() {
-                PitchGenerator.playSound(1200, Settings.millisecondsDisplayed);
+                PitchGenerator.playSound(secondPitchStimulus, Settings.millisecondsDisplayed);
             }
         };
 

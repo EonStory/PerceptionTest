@@ -14,22 +14,36 @@ public class PitchActivity extends Activity {
     PitchView pitchView;
     Handler handler = new Handler();
 
+    double firstStimuli = 500;
+    double secondStimuli = 900;
+    boolean isFirstStimuliLowerPitched = false;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         pitchView = new PitchView(this);
         setContentView(pitchView);
-        initiatePitchSequence(500, 900);
+        initiatePitchSequence();
     }
 
 
     //plays the 2 pitch sounds
-    public void initiatePitchSequence(final int firstFrequency, final int secondFrequency) {
+    public void initiatePitchSequence() {
+        //TODO: ensure these numbers are not equal to each other
+        firstStimuli = (int) (Math.random() * 600 + 200);
+        secondStimuli = (int) (Math.random() * 600 + 200);
+
+        if (firstStimuli <= secondStimuli) {
+            isFirstStimuliLowerPitched = true;
+        }
+        else {
+            isFirstStimuliLowerPitched = false;
+        }
 
         Runnable r = new Runnable() {
             @Override
             public void run() {
-                PitchGenerator.playSound(firstFrequency, Settings.millisecondsDisplayed);
+                PitchGenerator.playSound(firstStimuli, Settings.millisecondsDisplayed);
             }
         };
 
@@ -38,7 +52,7 @@ public class PitchActivity extends Activity {
         Runnable r2 = new Runnable() {
             @Override
             public void run() {
-                PitchGenerator.playSound(secondFrequency, Settings.millisecondsDisplayed);
+                PitchGenerator.playSound(secondStimuli, Settings.millisecondsDisplayed);
             }
         };
 
@@ -59,9 +73,11 @@ public class PitchActivity extends Activity {
     }
 
     public void firstButton(View view) {
+        PerceptionDatum<Double> pitchDatum = new PerceptionDatum<>(0, isFirstStimuliLowerPitched, firstStimuli, secondStimuli);
+        PerceptionData.addPitchDatum(pitchDatum);
         if (continueSelected) {
             setContentView(pitchView);
-            initiatePitchSequence(500, 900);
+            initiatePitchSequence();
         }
         else {
             Intent thingy = new Intent(PitchActivity.this, MainActivity.class);
@@ -70,9 +86,12 @@ public class PitchActivity extends Activity {
     }
 
     public void secondButton(View view) {
+        //flip the result of isFirstStimuliLowerPitched to see if its the right answer
+        PerceptionDatum<Double> pitchDatum = new PerceptionDatum<>(0, !isFirstStimuliLowerPitched, firstStimuli, secondStimuli);
+        PerceptionData.addPitchDatum(pitchDatum);
         if (continueSelected) {
             setContentView(pitchView);
-            initiatePitchSequence(500, 900);
+            initiatePitchSequence();
         }
         else {
             Intent thingy = new Intent(PitchActivity.this, MainActivity.class);
