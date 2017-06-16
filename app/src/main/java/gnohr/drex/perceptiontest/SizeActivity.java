@@ -9,77 +9,78 @@ import android.widget.TextView;
 
 public class SizeActivity extends Activity {
 
-    boolean continueSelected = true;
-    SizeView bv;
-    Handler handler = new Handler();
-    int firstStimuli = 200;
-    int secondStimuli = 300;
-    boolean isFirstStimuliBigger = false;
+  boolean continueSelected = true;
+  SizeView bv;
+  Handler handler = new Handler();
+  int firstStimulus = 200;
+  int secondStimulus = 300;
+  boolean isFirstStimuliBigger = false;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
 
-        super.onCreate(savedInstanceState);
+    super.onCreate(savedInstanceState);
 
-        bv = new SizeView(this);
-        giveStimuliThenQuestions(bv);
+    bv = new SizeView(this);
+    giveStimuliThenQuestions(bv);
+  }
+
+  public void giveStimuliThenQuestions(View view) {
+    //TODO: ensure these numbers are not equal to each other
+    firstStimulus = (int) (Math.random() * 600 + 200);
+    secondStimulus = (int) (Math.random() * 600 + 200);
+
+    if (firstStimulus >= secondStimulus) {
+      isFirstStimuliBigger = true;
+    } else {
+      isFirstStimuliBigger = false;
     }
 
-    public void giveStimuliThenQuestions(View view) {
-        //TODO: ensure these numbers are not equal to each other
-        firstStimuli = (int) (Math.random() * 600 + 200);
-        secondStimuli = (int) (Math.random() * 600 + 200);
+    setContentView(bv);
+    bv.initiateCircleSequence(firstStimulus, secondStimulus);
 
-        if (firstStimuli <= secondStimuli) {
-            isFirstStimuliBigger = true;
-        }
-        else {
-            isFirstStimuliBigger = false;
-        }
+    long totalWaitTime = Settings.gapBetweenStimuli + Settings.initialDelay + 2 * Settings.millisecondsDisplayed;
 
-        setContentView(bv);
-        bv.initiateCircleSequence(firstStimuli, secondStimuli);
+    Runnable r = new Runnable() {
+      @Override
+      public void run() {
+        setContentView(R.layout.question);
+        TextView phrase = (TextView) findViewById(R.id.stimuliQuestion);
+        phrase.setText("Which stimulus was bigger?");
+      }
+    };
 
-        long totalWaitTime = Settings.gapBetweenStimuli + Settings.initialDelay + 2 * Settings.millisecondsDisplayed;
+    handler.postDelayed(r, totalWaitTime);
+  }
 
-        Runnable r = new Runnable() {
-            @Override
-            public void run() {
-                setContentView(R.layout.question);
-                TextView phrase = (TextView)findViewById(R.id.stimuliQuestion);
-                phrase.setText("Which stimulus was bigger?");
-            }
-        };
-
-        handler.postDelayed(r, totalWaitTime);
+  public void firstButton(View view) {
+    PerceptionDatum sizeDatum = new PerceptionDatum(0, isFirstStimuliBigger, firstStimulus, secondStimulus);
+    PerceptionData.sizeData.addDatum(sizeDatum);
+    if (continueSelected == true) {
+      giveStimuliThenQuestions(bv);
+    } else {
+      Intent thingy = new Intent(SizeActivity.this, MainActivity.class);
+      startActivity(thingy);
     }
+  }
 
-    public void firstButton(View view) {
-        if (continueSelected == true) {
-            giveStimuliThenQuestions(bv);
-        }
-        else {
-            Intent thingy = new Intent(SizeActivity.this, MainActivity.class);
-            startActivity(thingy);
-        }
+  public void secondButton(View view) {
+    PerceptionDatum sizeDatum = new PerceptionDatum(0, !isFirstStimuliBigger, firstStimulus, secondStimulus);
+    PerceptionData.sizeData.addDatum(sizeDatum);
+    if (continueSelected == true) {
+      giveStimuliThenQuestions(bv);
+    } else {
+      Intent thingy = new Intent(SizeActivity.this, MainActivity.class);
+      startActivity(thingy);
     }
+  }
 
-    public void secondButton(View view) {
-        if (continueSelected == true) {
-            giveStimuliThenQuestions(bv);
-        }
-        else {
-            Intent thingy = new Intent(SizeActivity.this, MainActivity.class);
-            startActivity(thingy);
-        }
-    }
+  public void continueEar(View view) {
+    continueSelected = true;
+  }
 
-    public void continueEar(View view) {
-        continueSelected = true;
-    }
-
-    public void endEar(View view) {
-        continueSelected = false;
-    }
+  public void endEar(View view) {
+    continueSelected = false;
+  }
 
 }
