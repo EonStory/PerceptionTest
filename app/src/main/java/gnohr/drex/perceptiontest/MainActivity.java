@@ -8,44 +8,50 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main);
+    setContentView(R.layout.activity_main);
 
-        Button sizeButton = (Button) findViewById(R.id.button4);
-        sizeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent thingy = new Intent(MainActivity.this, SizeActivity.class);
-                startActivity(thingy);
-            }
-        });
+    Button sizeButton = (Button) findViewById(R.id.button4);
+    sizeButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        Intent thingy = new Intent(MainActivity.this, SizeActivity.class);
+        startActivity(thingy);
+      }
+    });
 
 
+    Button pitchButton = (Button) findViewById(R.id.button);
+    pitchButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
 
-        Button pitchButton = (Button) findViewById(R.id.button);
-        pitchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        Intent thingy2 = new Intent(MainActivity.this, PitchActivity.class);
+        startActivity(thingy2);
 
-                Intent thingy2 = new Intent(MainActivity.this, PitchActivity.class);
-                startActivity(thingy2);
+      }
+    });
 
-            }
-        });
+    Button combinedButton = (Button) findViewById(R.id.button5);
+    combinedButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
 
-        Button combinedButton = (Button) findViewById(R.id.button5);
-        combinedButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        Intent thingy2 = new Intent(MainActivity.this, CombinedActivity.class);
+        startActivity(thingy2);
 
-                Intent thingy2 = new Intent(MainActivity.this, CombinedActivity.class);
-                startActivity(thingy2);
+      }
+    });
 
-            }
-        });
+  }
 
-    }
+  public void stats(View view) {
+    Intent intent = new Intent(MainActivity.this, StatisticsActivity.class);
+    startActivity(intent);
+  }
+
+
 }

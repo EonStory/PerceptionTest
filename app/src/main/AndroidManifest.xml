@@ -21,6 +21,11 @@
         </activity>
         <activity android:name=".CombinedActivity">
         </activity>
+        <activity android:name=".StatisticsActivity">
+        </activity>
+        <activity android:name=".StatsInfoActivity">
+        </activity>
+
     </application>
 
 </manifest>

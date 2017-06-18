@@ -8,21 +8,21 @@ import android.view.View;
 
 public class PitchView extends View {
 
-    Context context;
-    Paint paint = new Paint();
+  Context context;
+  Paint paint = new Paint();
 
-    public PitchView(Context context) {
-        super(context);
-        this.context = context;
-    }
+  public PitchView(Context context) {
+    super(context);
+    this.context = context;
+  }
 
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        paint.setStyle(Paint.Style.FILL);
-        paint.setColor(Color.BLACK);
-        canvas.drawPaint(paint);
+  protected void onDraw(Canvas canvas) {
+    super.onDraw(canvas);
+    paint.setStyle(Paint.Style.FILL);
+    paint.setColor(Color.BLACK);
+    canvas.drawPaint(paint);
 
-        //This makes it redraw so animation can be used
-        //invalidate();
-    }
+    //This makes it redraw so animation can be used
+    //invalidate();
+  }
 }

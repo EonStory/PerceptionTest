@@ -10,100 +10,97 @@ import android.widget.TextView;
 //contains code about generating the tones
 public class PitchActivity extends Activity {
 
-    boolean continueSelected = true;
-    PitchView pitchView;
-    Handler handler = new Handler();
+  boolean continueSelected = true;
+  PitchView pitchView;
+  Handler handler = new Handler();
 
-    double firstStimuli = 500;
-    double secondStimuli = 900;
-    boolean isFirstStimuliLowerPitched = false;
+  double firstStimulus = 500;
+  double secondStimulus = 900;
+  boolean isFirstStimuliLowerPitched = false;
 
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
 
-        pitchView = new PitchView(this);
-        setContentView(pitchView);
-        initiatePitchSequence();
+    pitchView = new PitchView(this);
+    setContentView(pitchView);
+    initiatePitchSequence();
+  }
+
+
+  //plays the 2 pitch sounds
+  public void initiatePitchSequence() {
+    //TODO: ensure these numbers are not equal to each other
+    firstStimulus = (int) (Math.random() * 600 + 200);
+    secondStimulus = (int) (Math.random() * 600 + 200);
+
+    if (firstStimulus <= secondStimulus) {
+      isFirstStimuliLowerPitched = true;
+    } else {
+      isFirstStimuliLowerPitched = false;
     }
 
+    Runnable r = new Runnable() {
+      @Override
+      public void run() {
+        PitchGenerator.playSound(firstStimulus, Settings.millisecondsDisplayed);
+      }
+    };
 
-    //plays the 2 pitch sounds
-    public void initiatePitchSequence() {
-        //TODO: ensure these numbers are not equal to each other
-        firstStimuli = (int) (Math.random() * 600 + 200);
-        secondStimuli = (int) (Math.random() * 600 + 200);
+    handler.postDelayed(r, Settings.initialDelay);
 
-        if (firstStimuli <= secondStimuli) {
-            isFirstStimuliLowerPitched = true;
-        }
-        else {
-            isFirstStimuliLowerPitched = false;
-        }
+    Runnable r2 = new Runnable() {
+      @Override
+      public void run() {
+        PitchGenerator.playSound(secondStimulus, Settings.millisecondsDisplayed);
+      }
+    };
 
-        Runnable r = new Runnable() {
-            @Override
-            public void run() {
-                PitchGenerator.playSound(firstStimuli, Settings.millisecondsDisplayed);
-            }
-        };
+    handler.postDelayed(r2, Settings.initialDelay + Settings.millisecondsDisplayed + Settings.gapBetweenStimuli);
 
-        handler.postDelayed(r, Settings.initialDelay);
+    long totalWaitTime = Settings.gapBetweenStimuli + Settings.initialDelay + 2 * Settings.millisecondsDisplayed;
 
-        Runnable r2 = new Runnable() {
-            @Override
-            public void run() {
-                PitchGenerator.playSound(secondStimuli, Settings.millisecondsDisplayed);
-            }
-        };
+    Runnable q = new Runnable() {
+      @Override
+      public void run() {
+        setContentView(R.layout.question);
+        TextView phrase = (TextView) findViewById(R.id.stimuliQuestion);
+        phrase.setText("Which stimulus was lower pitched?");
+      }
+    };
 
-        handler.postDelayed(r2, Settings.initialDelay + Settings.millisecondsDisplayed + Settings.gapBetweenStimuli);
+    handler.postDelayed(q, totalWaitTime);
+  }
 
-        long totalWaitTime = Settings.gapBetweenStimuli + Settings.initialDelay + 2 * Settings.millisecondsDisplayed;
-
-        Runnable q = new Runnable() {
-            @Override
-            public void run() {
-                setContentView(R.layout.question);
-                TextView phrase = (TextView)findViewById(R.id.stimuliQuestion);
-                phrase.setText("Which stimulus was lower pitched?");
-            }
-        };
-
-        handler.postDelayed(q, totalWaitTime);
+  public void firstButton(View view) {
+    PerceptionDatum pitchDatum = new PerceptionDatum(0, isFirstStimuliLowerPitched, firstStimulus, secondStimulus);
+    PerceptionData.pitchData.addDatum(pitchDatum);
+    if (continueSelected) {
+      setContentView(pitchView);
+      initiatePitchSequence();
+    } else {
+      Intent thingy = new Intent(PitchActivity.this, MainActivity.class);
+      startActivity(thingy);
     }
+  }
 
-    public void firstButton(View view) {
-        PerceptionDatum<Double> pitchDatum = new PerceptionDatum<>(0, isFirstStimuliLowerPitched, firstStimuli, secondStimuli);
-        PerceptionData.addPitchDatum(pitchDatum);
-        if (continueSelected) {
-            setContentView(pitchView);
-            initiatePitchSequence();
-        }
-        else {
-            Intent thingy = new Intent(PitchActivity.this, MainActivity.class);
-            startActivity(thingy);
-        }
+  public void secondButton(View view) {
+    //flip the result of isFirstStimuliLowerPitched to see if its the right answer
+    PerceptionDatum pitchDatum = new PerceptionDatum(0, !isFirstStimuliLowerPitched, firstStimulus, secondStimulus);
+    PerceptionData.pitchData.addDatum(pitchDatum);
+    if (continueSelected) {
+      setContentView(pitchView);
+      initiatePitchSequence();
+    } else {
+      Intent thingy = new Intent(PitchActivity.this, MainActivity.class);
+      startActivity(thingy);
     }
+  }
 
-    public void secondButton(View view) {
-        //flip the result of isFirstStimuliLowerPitched to see if its the right answer
-        PerceptionDatum<Double> pitchDatum = new PerceptionDatum<>(0, !isFirstStimuliLowerPitched, firstStimuli, secondStimuli);
-        PerceptionData.addPitchDatum(pitchDatum);
-        if (continueSelected) {
-            setContentView(pitchView);
-            initiatePitchSequence();
-        }
-        else {
-            Intent thingy = new Intent(PitchActivity.this, MainActivity.class);
-            startActivity(thingy);
-        }
-    }
+  public void continueEar(View view) {
+    continueSelected = true;
+  }
 
-    public void continueEar(View view) {
-        continueSelected = true;
-    }
-
-    public void endEar(View view) {
-        continueSelected = false;
-    }
+  public void endEar(View view) {
+    continueSelected = false;
+  }
 }
