@@ -107,8 +107,8 @@ public class CombinedActivity extends Activity {
   }
 
   public void secondButton(View view) {
-    PerceptionDatum pitchDatum = new PerceptionDatum(0, isFirstStimuliLowerPitchedAndBigger, firstPitchStimulus, secondPitchStimulus);
-    PerceptionDatum sizeDatum = new PerceptionDatum(0, isFirstStimuliLowerPitchedAndBigger, firstSizeStimulus, secondSizeStimulus);
+    PerceptionDatum pitchDatum = new PerceptionDatum(0, !isFirstStimuliLowerPitchedAndBigger, firstPitchStimulus, secondPitchStimulus);
+    PerceptionDatum sizeDatum = new PerceptionDatum(0, !isFirstStimuliLowerPitchedAndBigger, firstSizeStimulus, secondSizeStimulus);
     PerceptionData.combinedSizeData.addDatum(sizeDatum);
     PerceptionData.combinedPitchData.addDatum(pitchDatum);
 

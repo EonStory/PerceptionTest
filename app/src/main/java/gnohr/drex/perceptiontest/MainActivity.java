@@ -6,6 +6,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+
+/*
+TODO solve the differential equation of the quadratic in order to figure out the best
+value difficult to aim for so that a big effect from the combined stimuli can be measured
+ */
 public class MainActivity extends AppCompatActivity {
 
   @Override

@@ -32,13 +32,12 @@ public class DifficultyProducer {
       }
     });
 
-    PerceptionDatum[] stimuli = new PerceptionDatum[2];
 
     int[] successful = new int[previousTestResults.size()];
 
     int successCount = 0;
     for (int i = 0; i < successful.length; i++) {
-      if (previousTestResults.get(i).isSuccess() == true) {
+      if (previousTestResults.get(i).isSuccess()) {
         successCount++;
       }
       successful[i] = successCount;
@@ -49,7 +48,7 @@ public class DifficultyProducer {
     //descending now!
     int failureCount = 0;
     for (int i = successful.length; i >= 0; i--) {
-      if (previousTestResults.get(i).isSuccess() == false) {
+      if (!previousTestResults.get(i).isSuccess()) {
         failureCount++;
       }
       failure[i] = failureCount;
