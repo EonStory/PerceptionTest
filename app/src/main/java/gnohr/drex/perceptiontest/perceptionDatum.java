@@ -1,37 +1,42 @@
 package gnohr.drex.perceptiontest;
 
-import java.sql.Time;
-
 public class PerceptionDatum {
   //records the time at which the answer was submitted (or timeout reached)
   private long timeCompletedAt;
   //Did the user select the correct answer:
   private boolean passed;
   //Stores the values of the 2 stimuli
-  private Number value1;
-  private Number value2;
+  private double smallStimulus;
+  private double bigStimulus;
 
 
   private PerceptionDatum() {
   }
 
-  public PerceptionDatum(long timeCompletedAt, boolean passed, Number value1, Number value2) {
+  public PerceptionDatum(long timeCompletedAt, boolean passed, double value1, double value2) {
     this.timeCompletedAt = timeCompletedAt;
     this.passed = passed;
-    this.value1 = value1;
-    this.value2 = value2;
+    if (value1 < value2) {
+      this.smallStimulus = value1;
+      this.bigStimulus = value2;
+    }
+    else {
+      this.smallStimulus = value2;
+      this.bigStimulus = value1;
+    }
+
   }
 
   public boolean isSuccess() {
     return passed;
   }
 
-  public Number getValue1() {
-    return value1;
+  public Number getSmallStimulus() {
+    return smallStimulus;
   }
 
-  public Number getValue2() {
-    return value2;
+  public Number getBigStimulus() {
+    return bigStimulus;
   }
 
   public long getTimeAsLong() {
@@ -40,12 +45,6 @@ public class PerceptionDatum {
 
   //returns how many times bigger the bigger one is than the smaller one
   public double getDelta() {
-    double a1 = value1.doubleValue();
-    double b1 = value2.doubleValue();
-
-    double min = Math.min(a1, b1);
-    double max = Math.max(a1, b1);
-
-    return (max / min);
+    return (bigStimulus / smallStimulus) - 1;
   }
 }

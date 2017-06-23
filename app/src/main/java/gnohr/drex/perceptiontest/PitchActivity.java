@@ -30,8 +30,9 @@ public class PitchActivity extends Activity {
   //plays the 2 pitch sounds
   public void initiatePitchSequence() {
     //TODO: ensure these numbers are not equal to each other
-    firstStimulus = (int) (Math.random() * 600 + 200);
-    secondStimulus = (int) (Math.random() * 600 + 200);
+    double delta = PerceptionData.pitchData.generateDelta(0.66);
+    firstStimulus = (int) (Math.random() * 100 + 300);
+    secondStimulus = (int) (firstStimulus * (delta + 1));
 
     if (firstStimulus <= secondStimulus) {
       isFirstStimuliLowerPitched = true;

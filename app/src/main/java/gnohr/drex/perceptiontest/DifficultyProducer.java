@@ -18,14 +18,18 @@ public class DifficultyProducer {
   and if you failed a test, you would fail all harder tests
   it sums up all the tests and failures to provide a % chance of failing all previous tests
    */
+
+
+
+
   public static double[] difficultyCalculator(Number num, double difficulltyMinimum, double difficultyMaximum, ArrayList<PerceptionDatum> previousTestResults) {
     //the list must be sorted first because it coutns successes and failures in a cumulative way
     //at each point in the list it records the runnning  number of fails or successes up to that point
     Collections.sort(previousTestResults, new Comparator<PerceptionDatum>() {
       public int compare(PerceptionDatum pd1, PerceptionDatum pd2) {
-        if (pd1.getValue1().doubleValue() / pd1.getValue2().doubleValue() == pd2.getValue1().doubleValue() / pd2.getValue2().doubleValue())
+        if (pd1.getSmallStimulus().doubleValue() / pd1.getBigStimulus().doubleValue() == pd2.getSmallStimulus().doubleValue() / pd2.getBigStimulus().doubleValue())
           return 0;
-        else if (pd1.getValue1().doubleValue() / pd1.getValue2().doubleValue() > pd2.getValue1().doubleValue() / pd2.getValue2().doubleValue())
+        else if (pd1.getSmallStimulus().doubleValue() / pd1.getBigStimulus().doubleValue() > pd2.getSmallStimulus().doubleValue() / pd2.getBigStimulus().doubleValue())
           return 1;
         else
           return -1;
