@@ -1,6 +1,6 @@
 package gnohr.drex.perceptiontest;
 
-public class PerceptionRename {
+public class PerceptionDatum {
   //records the time at which the answer was submitted (or timeout reached)
   private long timeCompletedAt;
   //Did the user select the correct answer:
@@ -10,10 +10,10 @@ public class PerceptionRename {
   private double bigStimulus;
 
   //lower case filename? Hoping for goodness! Part II
-  private PerceptionRename() {
+  private PerceptionDatum() {
   }
 
-  public PerceptionRename(long timeCompletedAt, boolean passed, double value1, double value2) {
+  public PerceptionDatum(long timeCompletedAt, boolean passed, double value1, double value2) {
     this.timeCompletedAt = timeCompletedAt;
     this.passed = passed;
     if (value1 < value2) {
