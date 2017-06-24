@@ -9,7 +9,7 @@ public class PerceptionDatum {
   private double smallStimulus;
   private double bigStimulus;
 
-
+  //lower case filename? Hopign for goodness!
   private PerceptionDatum() {
   }
 
