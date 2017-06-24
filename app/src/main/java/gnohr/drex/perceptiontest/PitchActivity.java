@@ -10,13 +10,15 @@ import android.widget.TextView;
 //contains code about generating the tones
 public class PitchActivity extends Activity {
 
+
   boolean continueSelected = true;
   PitchView pitchView;
   Handler handler = new Handler();
 
-  double firstStimulus = 500;
-  double secondStimulus = 900;
   boolean isFirstStimuliLowerPitched = false;
+
+  double firstStimulus;
+  double secondStimulus;
 
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -31,12 +33,18 @@ public class PitchActivity extends Activity {
   public void initiatePitchSequence() {
     //TODO: ensure these numbers are not equal to each other
     double delta = PerceptionData.pitchData.generateDelta(0.66);
-    firstStimulus = (int) (Math.random() * 100 + 300);
-    secondStimulus = (int) (firstStimulus * (delta + 1));
 
-    if (firstStimulus <= secondStimulus) {
+    double lowPitchStim = (int) (Math.random() * 100 + 300);
+    double highPitchStim = (int) (lowPitchStim * (delta + 1));
+
+    if (Math.random() < 0.5) {
+      firstStimulus = lowPitchStim;
+      secondStimulus = highPitchStim;
       isFirstStimuliLowerPitched = true;
-    } else {
+    }
+    else {
+      firstStimulus = highPitchStim;
+      secondStimulus = lowPitchStim;
       isFirstStimuliLowerPitched = false;
     }
 

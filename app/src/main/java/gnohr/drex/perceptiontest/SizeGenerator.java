@@ -13,14 +13,14 @@ public class SizeGenerator {
   private SizeGenerator() {
   }
 
-  public static void drawSize(View view, Canvas canvas, int circleRadius) {
+  public static void drawSize(View view, Canvas canvas, double circleRadius) {
     int x = view.getWidth();
     int y = view.getHeight();
     paint.setStyle(Paint.Style.FILL);
     paint.setColor(Color.BLACK);
     canvas.drawPaint(paint);
     paint.setColor(Color.BLUE);
-    canvas.drawCircle(x / 2, y / 2, circleRadius, paint);
+    canvas.drawCircle(x / 2, y / 2, (float) circleRadius, paint);
 
     //Display display = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
     //int rotation = display.getRotation();

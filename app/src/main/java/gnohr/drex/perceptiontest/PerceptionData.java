@@ -16,7 +16,7 @@ public class PerceptionData {
   public static PerceptionData combinedSizeData = new PerceptionData();
   public static PerceptionData combinedPitchData = new PerceptionData();
 
-  double stepSize = 0.01;
+  double stepSize = 0.002;
   int stepCount = 40;
 
   //size data is a number that represents the size in pixels of the stimulus
@@ -37,19 +37,18 @@ public class PerceptionData {
   //input the difficulty between 2 stimuli you would like the user to face
   //(difficulty means probability user answers correctly)
   //and it outputs the estimated delta between the 2 stimuli to achieve this
-  public double generateDelta(double desiredDifficulty) {
-    double[] result = new double[stepCount];
 
+  //TODO: ensure delta > 0 so stimuli arent identical
+  public double generateDelta(double desiredDifficulty) {
+
+    double[] result = new double[stepCount];
     int[] successCount = new int[result.length];
     int[] failCount = new int[result.length];
-
 
     //assign a success at the hardest point and a fail at the easiest point
     //to avoid NaN problems (and problems dealing with theory of no information)
     successCount[0] = 1;
     failCount[failCount.length - 1] = 1;
-
-
 
 
     for (int i = 0; i < data.size(); i++) {
@@ -118,7 +117,7 @@ public class PerceptionData {
       }
     }
 
-    throw  new IllegalStateException("heh");
+    throw  new IllegalStateException("state should never be reached");
   }
 
   public double findMaxDelta() {
@@ -202,6 +201,7 @@ public class PerceptionData {
   }
 
 
+  //these 2 methods could be changed into 1 with .isSuccess() == booleanValue
   //used for combined perceptions
   public static int getCombinedCorrectWithinDeltaRange(PerceptionData a, double minDeltaA, double maxDeltaA, PerceptionData b, double minDeltaB, double maxDeltaB) {
     int correctAnswers = 0;
@@ -216,7 +216,7 @@ public class PerceptionData {
     return correctAnswers;
   }
 
-  //used for combined perceptions
+
   public static int getCombinedIncorrectWithinDeltaRange(PerceptionData a, double minDeltaA, double maxDeltaA, PerceptionData b, double minDeltaB, double maxDeltaB) {
     int incorrectAnswers = 0;
     for (int i = 0; i < a.data.size(); i++) {

@@ -12,8 +12,8 @@ public class SizeActivity extends Activity {
   boolean continueSelected = true;
   SizeView bv;
   Handler handler = new Handler();
-  int firstStimulus = 200;
-  int secondStimulus = 300;
+  double firstStimulus;
+  double secondStimulus;
   boolean isFirstStimuliBigger = false;
 
   @Override
@@ -26,14 +26,20 @@ public class SizeActivity extends Activity {
   }
 
   public void giveStimuliThenQuestions(View view) {
-    //TODO: ensure these numbers are not equal to each other
-    firstStimulus = (int) (Math.random() * 600 + 200);
-    secondStimulus = (int) (Math.random() * 600 + 200);
 
-    if (firstStimulus >= secondStimulus) {
-      isFirstStimuliBigger = true;
-    } else {
+    double delta = PerceptionData.sizeData.generateDelta(0.56);
+    double smallSizeStim = Math.random() * 100 + 300;
+    double bigSizeStim =  smallSizeStim * (delta + 1);
+
+    if (Math.random() < 0.5) {
+      firstStimulus = smallSizeStim;
+      secondStimulus = bigSizeStim;
       isFirstStimuliBigger = false;
+    }
+    else {
+      firstStimulus = bigSizeStim;
+      secondStimulus = smallSizeStim;
+      isFirstStimuliBigger = true;
     }
 
     setContentView(bv);
@@ -56,7 +62,7 @@ public class SizeActivity extends Activity {
   public void firstButton(View view) {
     PerceptionDatum sizeDatum = new PerceptionDatum(0, isFirstStimuliBigger, firstStimulus, secondStimulus);
     PerceptionData.sizeData.addDatum(sizeDatum);
-    if (continueSelected == true) {
+    if (continueSelected) {
       giveStimuliThenQuestions(bv);
     } else {
       Intent thingy = new Intent(SizeActivity.this, MainActivity.class);
@@ -67,7 +73,7 @@ public class SizeActivity extends Activity {
   public void secondButton(View view) {
     PerceptionDatum sizeDatum = new PerceptionDatum(0, !isFirstStimuliBigger, firstStimulus, secondStimulus);
     PerceptionData.sizeData.addDatum(sizeDatum);
-    if (continueSelected == true) {
+    if (continueSelected) {
       giveStimuliThenQuestions(bv);
     } else {
       Intent thingy = new Intent(SizeActivity.this, MainActivity.class);

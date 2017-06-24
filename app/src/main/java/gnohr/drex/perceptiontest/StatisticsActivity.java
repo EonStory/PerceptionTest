@@ -5,15 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.SeekBar;
-import android.widget.TextView;
 
 public class StatisticsActivity extends Activity {
 
   public static final int SIZE_CLICKED = 33;
   public static final int PITCH_CLICKED = 34;
   public static final int COMBINED_CLICKED = 35;
-
 
   View curView;
 

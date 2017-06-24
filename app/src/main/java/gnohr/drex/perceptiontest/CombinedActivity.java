@@ -12,8 +12,8 @@ public class CombinedActivity extends Activity {
   boolean continueSelected = true;
   SizeView bv;
   Handler handler = new Handler();
-  int firstSizeStimulus = 500;
-  int secondSizeStimulus = 900;
+  double firstSizeStimulus = 500;
+  double secondSizeStimulus = 900;
   double firstPitchStimulus = 300;
   double secondPitchStimulus = 200;
   boolean isFirstStimuliLowerPitchedAndBigger = false;
@@ -29,33 +29,30 @@ public class CombinedActivity extends Activity {
 
   public void giveStimuliThenQuestions(View view) {
     setContentView(bv);
-    //TODO: ensure these numbers are not equal to each other
-    firstSizeStimulus = (int) (Math.random() * 400 + 50);
-    secondSizeStimulus = (int) (Math.random() * 400 + 50);
 
-    int tempPitchStimulus1 = (int) (Math.random() * 600 + 200);
-    int tempPitchStimulus2 = (int) (Math.random() * 600 + 200);
+    double sizeDelta = PerceptionData.combinedSizeData.generateDelta(0.56);
+    double smallSizeStim = Math.random() * 100 + 300;
+    double bigSizeStim =  smallSizeStim * (sizeDelta + 1);
 
-    //pairs up the bigger size with the lower pitch.
-    if (firstSizeStimulus >= secondSizeStimulus) {
+    double pitchDelta = PerceptionData.combinedPitchData.generateDelta(0.56);
+    double lowPitchStim = Math.random() * 100 + 300;
+    double highPitchStim =  lowPitchStim * (pitchDelta + 1);
+
+    if (Math.random() < 0.5) {
+      firstSizeStimulus = bigSizeStim;
+      secondSizeStimulus = smallSizeStim;
+      firstPitchStimulus = lowPitchStim;
+      secondPitchStimulus = highPitchStim;
+
       isFirstStimuliLowerPitchedAndBigger = true;
-      if (tempPitchStimulus1 < tempPitchStimulus2) {
-        firstPitchStimulus = tempPitchStimulus1;
-        secondPitchStimulus = tempPitchStimulus2;
-      } else {
-        firstPitchStimulus = tempPitchStimulus2;
-        secondPitchStimulus = tempPitchStimulus1;
-      }
-    } else {
-      isFirstStimuliLowerPitchedAndBigger = false;
+    }
+    else {
+      firstSizeStimulus = smallSizeStim;
+      secondSizeStimulus = bigSizeStim;
+      firstPitchStimulus = highPitchStim;
+      secondPitchStimulus = lowPitchStim;
 
-      if (tempPitchStimulus1 < tempPitchStimulus2) {
-        firstPitchStimulus = tempPitchStimulus2;
-        secondPitchStimulus = tempPitchStimulus1;
-      } else {
-        firstPitchStimulus = tempPitchStimulus1;
-        secondPitchStimulus = tempPitchStimulus2;
-      }
+      isFirstStimuliLowerPitchedAndBigger = false;
     }
 
     bv.initiateCircleSequence(firstSizeStimulus, secondSizeStimulus);
@@ -98,7 +95,7 @@ public class CombinedActivity extends Activity {
     PerceptionData.combinedSizeData.addDatum(sizeDatum);
     PerceptionData.combinedPitchData.addDatum(pitchDatum);
 
-    if (continueSelected == true) {
+    if (continueSelected) {
       giveStimuliThenQuestions(bv);
     } else {
       Intent thingy = new Intent(CombinedActivity.this, MainActivity.class);
@@ -112,7 +109,7 @@ public class CombinedActivity extends Activity {
     PerceptionData.combinedSizeData.addDatum(sizeDatum);
     PerceptionData.combinedPitchData.addDatum(pitchDatum);
 
-    if (continueSelected == true) {
+    if (continueSelected) {
       giveStimuliThenQuestions(bv);
     } else {
       Intent thingy = new Intent(CombinedActivity.this, MainActivity.class);
