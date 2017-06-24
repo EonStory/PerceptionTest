@@ -81,7 +81,7 @@ public class PitchActivity extends Activity {
   }
 
   public void firstButton(View view) {
-    PerceptionDatum pitchDatum = new PerceptionDatum(0, isFirstStimuliLowerPitched, firstStimulus, secondStimulus);
+    PerceptionRename pitchDatum = new PerceptionRename(0, isFirstStimuliLowerPitched, firstStimulus, secondStimulus);
     PerceptionData.pitchData.addDatum(pitchDatum);
     if (continueSelected) {
       setContentView(pitchView);
@@ -94,7 +94,7 @@ public class PitchActivity extends Activity {
 
   public void secondButton(View view) {
     //flip the result of isFirstStimuliLowerPitched to see if its the right answer
-    PerceptionDatum pitchDatum = new PerceptionDatum(0, !isFirstStimuliLowerPitched, firstStimulus, secondStimulus);
+    PerceptionRename pitchDatum = new PerceptionRename(0, !isFirstStimuliLowerPitched, firstStimulus, secondStimulus);
     PerceptionData.pitchData.addDatum(pitchDatum);
     if (continueSelected) {
       setContentView(pitchView);

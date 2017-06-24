@@ -60,7 +60,7 @@ public class SizeActivity extends Activity {
   }
 
   public void firstButton(View view) {
-    PerceptionDatum sizeDatum = new PerceptionDatum(0, isFirstStimuliBigger, firstStimulus, secondStimulus);
+    PerceptionRename sizeDatum = new PerceptionRename(0, isFirstStimuliBigger, firstStimulus, secondStimulus);
     PerceptionData.sizeData.addDatum(sizeDatum);
     if (continueSelected) {
       giveStimuliThenQuestions(bv);
@@ -71,7 +71,7 @@ public class SizeActivity extends Activity {
   }
 
   public void secondButton(View view) {
-    PerceptionDatum sizeDatum = new PerceptionDatum(0, !isFirstStimuliBigger, firstStimulus, secondStimulus);
+    PerceptionRename sizeDatum = new PerceptionRename(0, !isFirstStimuliBigger, firstStimulus, secondStimulus);
     PerceptionData.sizeData.addDatum(sizeDatum);
     if (continueSelected) {
       giveStimuliThenQuestions(bv);

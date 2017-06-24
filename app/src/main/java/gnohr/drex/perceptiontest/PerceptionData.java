@@ -20,7 +20,7 @@ public class PerceptionData {
   int stepCount = 40;
 
   //size data is a number that represents the size in pixels of the stimulus
-  private ArrayList<PerceptionDatum> data = new ArrayList<>();
+  private ArrayList<PerceptionRename> data = new ArrayList<>();
 
   static {
     new PerceptionData();//wat
@@ -29,7 +29,7 @@ public class PerceptionData {
   private PerceptionData() {
   }
 
-  public void addDatum(PerceptionDatum sizeDatum) {
+  public void addDatum(PerceptionRename sizeDatum) {
     data.add(sizeDatum);
   }
 
@@ -127,7 +127,7 @@ public class PerceptionData {
     }
     double max = 0;
 
-    for (PerceptionDatum p : data) {
+    for (PerceptionRename p : data) {
       double current = p.getDelta();
 
       if (current > max) {
@@ -137,7 +137,7 @@ public class PerceptionData {
     return max;
   }
 
-  public double findMinDelta(ArrayList<PerceptionDatum> data) {
+  public double findMinDelta(ArrayList<PerceptionRename> data) {
     //TODO: change this
     if (data.size() == 0) {
       return 0;
@@ -145,7 +145,7 @@ public class PerceptionData {
     //start out with min set as the first in the array
     double min = data.get(0).getDelta();
 
-    for (PerceptionDatum p : data) {
+    for (PerceptionRename p : data) {
       double current = p.getDelta();
 
       if (current < min) {
@@ -159,7 +159,7 @@ public class PerceptionData {
   public int getCorrect() {
     int correctAnswers = 0;
 
-    for (PerceptionDatum p : data) {
+    for (PerceptionRename p : data) {
       if (p.isSuccess()) {
         correctAnswers++;
       }
@@ -176,7 +176,7 @@ public class PerceptionData {
   public int getCorrectWithinDeltaRange(double minDelta, double maxDelta) {
     int correctAnswers = 0;
 
-    for (PerceptionDatum p : data) {
+    for (PerceptionRename p : data) {
       if (p.isSuccess()) {
         if (p.getDelta() >= minDelta && p.getDelta() <= maxDelta) {
           correctAnswers++;
@@ -190,7 +190,7 @@ public class PerceptionData {
   public int getIncorrectWithinDeltaRange(double minDelta, double maxDelta) {
     int incorrectAnswers = 0;
 
-    for (PerceptionDatum p : data) {
+    for (PerceptionRename p : data) {
       if (!p.isSuccess()) {
         if (p.getDelta() >= minDelta && p.getDelta() <= maxDelta) {
           incorrectAnswers++;
