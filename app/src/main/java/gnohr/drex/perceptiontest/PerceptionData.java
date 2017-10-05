@@ -89,6 +89,11 @@ public class PerceptionData {
       distanceFromDesired[i] = Math.abs(desiredDifficulty - result[i]);
       //if the distance is 0, IMMEDAITELY pick this one!
       if (distanceFromDesired[i] == 0) {
+        if (i == 0) {
+          System.out.println("0 mega avoided at " + String.valueOf(i * stepSize));
+          return stepSize; //avoid returning 0
+
+        }
         return i * stepSize;
       }
     }
@@ -113,6 +118,10 @@ public class PerceptionData {
     for (int i = 0; i < score.length; i++) {
       if (randomSelect < score[i]) {
         System.out.println("randomSelect PICKED is " + String.valueOf(i * stepSize));
+        if (i == 0) {
+          System.out.println("0 avoided at " + String.valueOf(i * stepSize));
+          return stepSize; //avoid returning 0
+        }
         return i * stepSize;
       }
     }

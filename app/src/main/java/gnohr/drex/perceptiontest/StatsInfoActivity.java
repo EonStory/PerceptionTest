@@ -65,6 +65,26 @@ public class StatsInfoActivity extends Activity {
       maxSeek.setMax((int) Math.ceil(relevantData.findMaxDelta()));
       maxSeek.setProgress((int) Math.ceil(relevantData.findMaxDelta()));
 
+      //set initial values, future values updated in listener
+      minValueText.setText(String.valueOf(minSeek.getProgress()));
+      maxValueText.setText(String.valueOf(maxSeek.getProgress()));
+
+
+      double minProgress = (double)minSeek.getProgress();
+      double maxProgress = (double)maxSeek.getProgress();
+
+      correctText.setText(String.valueOf(relevantData.getCorrectWithinDeltaRange(minProgress, maxProgress)));
+      incorrectText.setText(String.valueOf(relevantData.getIncorrectWithinDeltaRange(minProgress, maxProgress)));
+      if ((relevantData.getCorrectWithinDeltaRange(minProgress, maxProgress) +
+              relevantData.getIncorrectWithinDeltaRange(minProgress, maxProgress) ) > 0) {
+        percentText.setText(String.valueOf(relevantData.getCorrectWithinDeltaRange(minProgress, maxProgress) /
+                ((double)( relevantData.getCorrectWithinDeltaRange(minProgress, maxProgress) +
+                        relevantData.getIncorrectWithinDeltaRange(minProgress, maxProgress)))));
+
+      }
+      else {
+        percentText.setText("-");
+      }
 
       minSeek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
         @Override
@@ -76,9 +96,16 @@ public class StatsInfoActivity extends Activity {
 
           correctText.setText(String.valueOf(relevantData.getCorrectWithinDeltaRange(minProgress, maxProgress)));
           incorrectText.setText(String.valueOf(relevantData.getIncorrectWithinDeltaRange(minProgress, maxProgress)));
-          percentText.setText(String.valueOf(relevantData.getCorrectWithinDeltaRange(minProgress, maxProgress) /
-                  ((double)( relevantData.getCorrectWithinDeltaRange(minProgress, maxProgress) +
-                          relevantData.getIncorrectWithinDeltaRange(minProgress, maxProgress)))));
+          if ((relevantData.getCorrectWithinDeltaRange(minProgress, maxProgress) +
+                  relevantData.getIncorrectWithinDeltaRange(minProgress, maxProgress) ) > 0) {
+            percentText.setText(String.valueOf(relevantData.getCorrectWithinDeltaRange(minProgress, maxProgress) /
+                    ((double)( relevantData.getCorrectWithinDeltaRange(minProgress, maxProgress) +
+                            relevantData.getIncorrectWithinDeltaRange(minProgress, maxProgress)))));
+
+          }
+          else {
+            percentText.setText("-");
+          }
         }
 
         @Override
